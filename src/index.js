@@ -1,13 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from './react';
+import ReactDOM from './react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const element = React.createElement('h2', {
+  className: 'title',
+  style: {
+    color: 'red'
+  }
+}, "hello", React.createElement('h3', null, "word"))
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  element,
   document.getElementById('root')
 );
 
