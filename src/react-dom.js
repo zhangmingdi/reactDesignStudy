@@ -4,7 +4,21 @@ function render(element, container) {
     return container.appendChild(document.createTextNode(element))
   }
 
-  const { type, props } = element
+  let { type, props } = element
+
+  if (typeof type === 'function') {
+    element = type()
+    type = element.type
+    props = element.props
+  }
+
+  let dom = createDom(type, props)
+
+  container.appendChild(dom)
+}
+
+
+function createDom(type, props) {
 
   const dom = document.createElement(type)
 
@@ -25,12 +39,9 @@ function render(element, container) {
     }
   }
 
-  container.appendChild(dom)
+  return dom
 
 }
-
-
-
 
 
 

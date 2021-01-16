@@ -4,12 +4,23 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const element = React.createElement('h2', {
-  className: 'title',
-  style: {
-    color: 'red'
-  }
-}, "hello", React.createElement('h3', null, "word"))
+// const element = React.createElement('h2', {
+//   className: 'title',
+//   style: {
+//     color: 'red'
+//   }
+// }, "hello", React.createElement('h3', null, "word"))
+
+function Element() {
+  return React.createElement('h2', {
+    className: 'title',
+    style: {
+      color: 'red'
+    }
+  }, "hello", React.createElement('span', null, "嘤嘤嘤"))
+}
+
+let element = React.createElement(Element, {})
 
 ReactDOM.render(
   element,
