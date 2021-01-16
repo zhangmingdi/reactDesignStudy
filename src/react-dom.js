@@ -7,7 +7,7 @@ function render(element, container) {
   let { type, props } = element
 
   if (typeof type === 'function') {
-    element = type()
+    element = type.isComponent ? new type().render() : type()
     type = element.type
     props = element.props
   }

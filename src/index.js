@@ -1,4 +1,4 @@
-import React from './react';
+import React, { Component } from './react';
 import ReactDOM from './react-dom';
 import './index.css';
 import App from './App';
@@ -11,13 +11,30 @@ import reportWebVitals from './reportWebVitals';
 //   }
 // }, "hello", React.createElement('h3', null, "word"))
 
-function Element() {
-  return React.createElement('h2', {
-    className: 'title',
-    style: {
-      color: 'red'
-    }
-  }, "hello", React.createElement('span', null, "嘤嘤嘤"))
+// function Element() {
+//   return React.createElement('h2', {
+//     className: 'title',
+//     style: {
+//       color: 'red'
+//     }
+//   }, "hello", React.createElement('span', null, "嘤嘤嘤"))
+// }
+
+class Element extends Component {
+
+  render() {
+
+    return React.createElement('h2', {
+      className: 'title',
+      style: {
+        color: 'red'
+      }
+    },
+      "hello",
+      React.createElement('span', null, "嘤嘤嘤"))
+
+  }
+
 }
 
 let element = React.createElement(Element, {})

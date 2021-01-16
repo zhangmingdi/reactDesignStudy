@@ -13,7 +13,20 @@ function createElement(type, config = {}, ...childrens) {
 
 
 
+export class Component {
 
+  static isComponent = true
+
+  constructor(props) {
+    this.props = props
+  }
+
+  render() {
+
+  }
+
+
+}
 
 
 
