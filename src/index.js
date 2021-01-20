@@ -25,6 +25,11 @@ class Counter extends Component {
   constructor(props) {
     super(props)
     this.state = { name: '计算器', number: 0 }
+
+    this._input1 = React.createRef()
+    this._input2 = React.createRef()
+    this._input3 = React.createRef()
+
   }
 
   componentWillMount() {
@@ -52,11 +57,12 @@ class Counter extends Component {
   }
 
   _handleDivClick = () => {
-    console.log(this.refs)
   }
 
   _handleClickAdd = () => {
-    this.refs['c'].value = this.refs['a'].value + this.refs['b'].value
+
+    console.log(this._input1, this._input2, this._input3)
+
   }
 
   render() {
@@ -69,10 +75,10 @@ class Counter extends Component {
     },
       React.createElement('h1', null, this.state.name + this.state.number),
       React.createElement('button', { onClick: this._handleClick }, "+"),
-      React.createElement('input', { ref: 'a' },),
-      React.createElement('input', { ref: 'b' },),
+      React.createElement('input', { ref: this._input1 },),
+      React.createElement('input', { ref: this._input2 },),
       React.createElement('button', { onClick: this._handleClickAdd }, "++"),
-      React.createElement('input', { ref: 'c' },),
+      React.createElement('input', { ref: this._input3 },),
     )
 
     // return (

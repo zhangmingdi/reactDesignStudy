@@ -68,8 +68,11 @@ export class Component {
 
 }
 
+function createRef() {
+  return { current: null }
+}
 
 
 
 
-export default { createElement }
+export default { createElement, createRef }
