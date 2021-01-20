@@ -29,6 +29,7 @@ export class Component {
     // 表示是否处于批量更新状态
     this._isBatchingUpdate = false
 
+    this.refs = {}
   }
 
   setState(partialState, calback) {

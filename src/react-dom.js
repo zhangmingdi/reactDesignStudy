@@ -74,6 +74,10 @@ function render(element, container, componentInstance) {
   if (typeof type === 'function') {
     componentInstance = isComponent ? new type() : null
     element = isComponent ? componentInstance.render() : type()
+    if (isComponent && componentInstance) {
+      // 生命周期的实现 当js描述的dom对象生产的时候
+      componentInstance.componentWillMount && componentInstance.componentWillMount()
+    }
     type = element.type
     props = element.props
   }
@@ -85,7 +89,10 @@ function render(element, container, componentInstance) {
   }
 
   container.appendChild(realDom)
+  if (isComponent && componentInstance) {
+    componentInstance.componentDidMount && componentInstance.componentDidMount()
 
+  }
 }
 
 // 把js对象描述的Dom转变为真是浏览器的dom
@@ -113,7 +120,26 @@ function createDom(type, props, componentInstance) {
     else {
       dom.setAttribute(propName, props[propName])
     }
+
+
   }
+
+  if (props.ref) {
+
+    const ref = props.ref
+
+    if (typeof ref === 'string') {
+      componentInstance.refs[ref] = dom
+    } else if (typeof ref === 'function') {
+      ref.call(componentInstance, dom)
+    } else if (typeof ref === 'object' && ref !== null) {
+      ref.current = dom
+    }
+
+
+  }
+
+
 
   return dom
 
