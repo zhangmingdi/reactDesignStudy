@@ -72,9 +72,15 @@ function render(element, container, componentInstance) {
   const isComponent = type.isComponent
 
   if (typeof type === 'function') {
-    componentInstance = isComponent ? new type() : null
-    element = isComponent ? componentInstance.render() : type()
+    componentInstance = isComponent ? new type(props) : null
+    element = isComponent ? componentInstance.render(props) : type(props)
     if (isComponent && componentInstance) {
+
+      // 让组件props的ref指向该组件实例
+      if (props.ref) {
+        props.ref.current = componentInstance
+      }
+
       // 生命周期的实现 当js描述的dom对象生产的时候
       componentInstance.componentWillMount && componentInstance.componentWillMount()
     }
