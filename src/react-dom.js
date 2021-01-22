@@ -63,6 +63,7 @@ function dispatchEvent(e) {
 
 function render(element, container, componentInstance) {
 
+
   if (typeof element === 'string' || typeof element === 'number') {
     return container.appendChild(document.createTextNode(element))
   }
@@ -73,7 +74,7 @@ function render(element, container, componentInstance) {
 
   if (typeof type === 'function') {
     componentInstance = isComponent ? new type(props) : null
-    element = isComponent ? componentInstance.render(props) : type(props)
+    element = isComponent ? componentInstance.render() : type(props)
     if (isComponent && componentInstance) {
 
       // 让组件props的ref指向该组件实例

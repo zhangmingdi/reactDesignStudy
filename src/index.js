@@ -4,6 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+
+
+const TextInput = (props, ref) => {
+  return React.createElement('div', { ref: ref },
+
+    "啊啊阿",
+    React.createElement('input',),
+
+  )
+}
+
+const ForwardInput = React.forwardRef(TextInput)
+
 class Form extends Component {
 
 
@@ -15,7 +28,10 @@ class Form extends Component {
   }
 
   _getfoucs = () => {
-    this.textInput.current.getFocus()
+
+    // console.log('最终', this.textInput.current)
+
+    // this.textInput.current.focus()
   }
 
   render() {
@@ -26,7 +42,7 @@ class Form extends Component {
         color: 'red'
       },
     },
-      React.createElement(TextInput, { ref: this.textInput },),
+      React.createElement(ForwardInput, { ref: this.textInput },),
       React.createElement('button', { onClick: this._getfoucs }, "获取焦点"),
     )
 
@@ -34,22 +50,6 @@ class Form extends Component {
 
 }
 
-class TextInput extends Component {
-  constructor(props) {
-    super(props)
-    this.input = React.createRef()
-  }
-
-  getFocus = () => {
-    console.log('sssssssssssssss', this.input)
-    this.input.current.focus()
-    this.input.current.value='sdsjdjslkjdl'
-  }
-
-  render() {
-    return React.createElement('input', { ref: this.input },)
-  }
-}
 
 
 let element = React.createElement(Form, {})

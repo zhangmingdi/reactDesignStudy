@@ -72,7 +72,21 @@ function createRef() {
   return { current: null }
 }
 
+function forwardRef(functionComponent) {
+
+  return class extends Component {
+
+    render() {
+      return functionComponent(this.props, this.props.ref)
+    }
+  }
 
 
+}
 
-export default { createElement, createRef }
+
+export default {
+  createElement,
+  createRef,
+  forwardRef
+}
