@@ -24,14 +24,42 @@ class Form extends Component {
 
     super(props)
 
-    this.textInput = React.createRef()
+    this.state = {
+      number: 1
+    }
+
+    console.log('1.执行constructor')
+  }
+
+  UNSAFE_componentWillMount() {
+    console.log('2.UNSAFE_componentWillMount 组件将要挂载')
+  }
+
+  componentDidMount() {
+    console.log('3.componentDidMount 页面首次渲染完成')
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('4.shouldComponentUpdate 性能优化', nextProps, nextState)
+    if (nextState.number % 2 !== 0) return false
+    return true
+  }
+
+  UNSAFE_componentWillUpdate() {
+    console.log('5.UNSAFE_componentWillUpdate 即将重新渲染')
+  }
+
+  componentDidUpdate() {
+    console.log('6.componentDidUpdate 重新渲染完毕')
+
   }
 
   _getfoucs = () => {
 
-    // console.log('最终', this.textInput.current)
+    this.setState({
+      number: this.state.number + 1
+    })
 
-    // this.textInput.current.focus()
   }
 
   render() {
@@ -42,8 +70,7 @@ class Form extends Component {
         color: 'red'
       },
     },
-      React.createElement(ForwardInput, { ref: this.textInput },),
-      React.createElement('button', { onClick: this._getfoucs }, "获取焦点"),
+      React.createElement('button', { onClick: this._getfoucs }, this.state.number),
     )
 
   }

@@ -83,7 +83,7 @@ function render(element, container, componentInstance) {
       }
 
       // 生命周期的实现 当js描述的dom对象生产的时候
-      componentInstance.componentWillMount && componentInstance.componentWillMount()
+      componentInstance.UNSAFE_componentWillMount && componentInstance.UNSAFE_componentWillMount()
     }
     type = element.type
     props = element.props

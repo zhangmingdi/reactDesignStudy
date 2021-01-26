@@ -59,11 +59,14 @@ export class Component {
     }, this.state)
 
     this._updateQueue.length = 0
-
-    // 这个函数的作用是更新最新的jsDom对象
-    updateComponent(this)
     this._callbackQueue.forEach(item => item())
     this._callbackQueue.length = 0
+    // 这个函数的作用是更新最新的jsDom对象
+    if (this.shouldComponentUpdate && !this.shouldComponentUpdate(this.props, this.state)) return
+    this.UNSAFE_componentWillUpdate && this.UNSAFE_componentWillUpdate()
+    updateComponent(this)
+    this.componentDidUpdate && this.componentDidUpdate()
+
   }
 
 }
