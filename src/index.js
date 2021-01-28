@@ -1,76 +1,60 @@
-import React, { Component } from './react';
-import ReactDOM from './react-dom';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 
-
-const TextInput = (props, ref) => {
-  return React.createElement('div', { ref: ref },
-
-    "啊啊阿",
-    React.createElement('input',),
-
-  )
-}
-
-const ForwardInput = React.forwardRef(TextInput)
-
-class Form extends Component {
-
+class ScrollList extends Component {
 
   constructor(props) {
-
     super(props)
 
-    this.state = {
-      number: 1
-    }
+    this._div = React.createRef()
 
-    console.log('1.执行constructor')
-  }
-
-  UNSAFE_componentWillMount() {
-    console.log('2.UNSAFE_componentWillMount 组件将要挂载')
   }
 
   componentDidMount() {
-    console.log('3.componentDidMount 页面首次渲染完成')
+    this._timer = setInterval(() => {
+      this.setState({
+        menberList: [this.state.menberList.length, ...this.state.menberList]
+      })
+    }, 1000)
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log('4.shouldComponentUpdate 性能优化', nextProps, nextState)
-    if (nextState.number % 2 !== 0) return false
-    return true
+  componentWillUnmount() {
+    clearInterval(this._timer)
   }
 
-  UNSAFE_componentWillUpdate() {
-    console.log('5.UNSAFE_componentWillUpdate 即将重新渲染')
+  getSnapshotBeforeUpdate() {
+    return this._div.current.scrollHeight
   }
 
-  componentDidUpdate() {
-    console.log('6.componentDidUpdate 重新渲染完毕')
-
+  componentDidUpdate(prevPros, preState, preScrollHeight) {
+    let nextScrollTop = this._div.current.scrollTop
+    this._div.current.scrollTop = nextScrollTop + (this._div.current.scrollHeight - preScrollHeight)
   }
 
-  _getfoucs = () => {
-
-    this.setState({
-      number: this.state.number + 1
-    })
-
+  state = {
+    menberList: []
   }
 
   render() {
 
-    return React.createElement('div', {
-      className: 'title',
-      style: {
-        color: 'red'
-      },
-    },
-      React.createElement('button', { onClick: this._getfoucs }, this.state.number),
+    const sty = {
+      width: "100px",
+      height: "100px",
+      border: "1px solid red",
+      overflow: "auto",
+
+    }
+
+    return (
+      <div ref={this._div} style={sty}>
+        {this.state.menberList.map((item, index) => (
+          <div key={index + ''}>{item}</div>
+        ))}
+      </div>
     )
 
   }
@@ -79,10 +63,8 @@ class Form extends Component {
 
 
 
-let element = React.createElement(Form, {})
-
 ReactDOM.render(
-  element,
+  <ScrollList />,
   document.getElementById('root')
 );
 
